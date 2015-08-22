@@ -1,0 +1,10 @@
+= simple_form_for(@event_date) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :date
+    = f.association :event, disabled: false, include_blank: false, :label_method => :to_label, collection: Event.where(id: @event_date.event_id), value_method: :id
+    = f.input :comment
+
+  .form-actions
+    = f.button :submit

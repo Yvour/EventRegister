@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @event.name
+%p
+  %b Initial date:
+  = @event.initial_date
+%p
+  %b Comment:
+  = @event.comment
+%p
+  %b Last date:
+  = @event.last_date
+%p
+  %b User:
+  = @event.user.the_name
+%p
+  %b Event type:
+  = @event.event_type.name
+
+= link_to 'Dates', events_dates_path({:id => @event.id, :data=>{}.to_json})
+\|
+
+= link_to 'Edit', edit_event_path(@event)
+\|
+= link_to 'Back', events_path

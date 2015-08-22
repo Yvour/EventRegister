@@ -1,0 +1,25 @@
+%h1 Dates of Event
+= @event.name
+
+%table
+  %thead
+    %tr
+      %th Date
+      %th Comment
+      %th
+      %th
+      %th
+      %th
+
+  %tbody
+    - @event_dates.each do |event_date|
+      %tr
+        %td= event_date.date
+        %td= event_date.comment
+        %td= link_to 'Show', event_date
+        %td= link_to 'Edit', edit_event_date_path(event_date)      
+        %td= link_to 'Destroy', event_date, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Event Date', new_event_date_with_data_path({:data=>{'event_id'=>@event.id}.to_json})

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EventRegister</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= begin link_to 'Log out', destroy_user_session_path(), :method=>:delete end if user_signed_in? %>
+<%= begin link_to 'Registration', user_registration_path(), :method=>:post end if !user_signed_in?%>   
+<%= begin link_to "Change user info", edit_user_registration_path end if  user_signed_in? %>
+<%= begin link_to 'Log in', new_user_session_path end if !user_signed_in? %>
+<%= begin link_to 'Events', events_path end if user_signed_in? %>
+<%= begin link_to 'Own Events', own_events_path end if user_signed_in? %>
+<%= yield %>
+
+</body>
+</html>

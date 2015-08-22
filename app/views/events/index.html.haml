@@ -1,0 +1,33 @@
+%h1 Listing events
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Initial date
+      %th Comment
+      %th Last date
+      %th User
+      %th Event type
+      %th
+      %th
+      %th
+      %th
+
+  %tbody
+    - @events.each do |event|
+      %tr
+        %td= event.name
+        %td= event.initial_date
+        %td= event.comment[0..6]
+        %td= event.last_date
+        %td= event.user.the_name
+        %td= event.event_type.name
+        %td= link_to 'Show', event
+        %td= link_to 'Edit', edit_event_path(event)
+        %td= link_to 'Dates', events_dates_path({:id => event.id, :data=>{}.to_json})
+        %td= link_to 'Destroy', event, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Event', new_event_path

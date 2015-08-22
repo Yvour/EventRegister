@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  initial_date: 2015-08-22
+  comment: MyText
+  last_date: 2015-08-22
+  user_id: 
+  event_type_id: 
+
+two:
+  name: MyString
+  initial_date: 2015-08-22
+  comment: MyText
+  last_date: 2015-08-22
+  user_id: 
+  event_type_id: 
