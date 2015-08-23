@@ -1,27 +1,30 @@
 class EventsController < ApplicationController
   before_action :not_authenticated
   before_action :set_event, only: [:show, :edit, :update, :destroy, :dates, :generate_dates]
+  before_action :recalculate_dates, only: [:own]
 
   # GET /events
   # GET /events.json
   def own
-    @events = Event.where(user: current_user)
+    @events = Event.where(user: current_user).order('last_date desc')
     render 'index'
   end
   
   def generate_dates
-    
+    @event.generate_dates
+    redirect_to event_path(@event)
+
   end
   
   
   def index
-    @events = Event.all
+    @events = Event.all.order('last_date desc')
   end
   
   def dates
     logger.debug "The_event is " + @event.to_json.to_s
     
-    @event_dates = EventDate.all
+    @event_dates = EventDate.where(event_id: @event.id).order('date desc')
     
     logger.info "the_dates is " + @event_dates.to_json.to_s
        render 'dates'
@@ -49,6 +52,9 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.user = current_user
+    @event.last_date = @event.initial_date
+    @event.event_dates << EventDate.new(date: @event.initial_date)
+    logger.info "created"
 
     respond_to do |format|
       if @event.save
@@ -87,12 +93,28 @@ class EventsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    
+    def recalculate_dates
+      Event.where(user: current_user).order('last_date desc').map do |event|
+        if event.event_type.name != 'once'
+          controldate = Date.today + 7
+      
+          while event.last_date < controldate # Горизонт планирования неделя
+             event.generate_dates(controldate)
+             event = Event.find(event.id)
+          end
+        end
+      end
+    end
+    
+    
+    
     def set_event
       @event = Event.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :initial_date, :comment, :last_date, :user_id, :event_type_id)
+      params.require(:event).permit(:name, :initial_date, :event_date_day, :comment, :last_date, :user_id, :event_type_id)
     end
 end

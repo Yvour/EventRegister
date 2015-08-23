@@ -3,7 +3,8 @@
 
   .form-inputs
     = f.input :name
-    = f.input :initial_date
+    = f.input :initial_date, as: :date
+    = f.input :event_date_day
     = f.input :comment
     = f.association :event_type
 

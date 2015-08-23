@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
   resources :event_dates
   resources :events
-  resources :event_dates
-  resources :event_types
-  resources :event_dates
-  resources :events
+
   get 'welcome/index'
   
 
@@ -12,6 +9,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
 match 'events/:id/dates/:data', to: 'events#dates', via: [:get], as: 'events_dates'
+match 'events/:id/generate_dates/:data', to: 'events#generate_dates', via: [:get], as: 'events_generate_dates'
 match 'event_dates/new/:data/', to: 'event_dates#new_with_data', via: [:get], as: 'new_event_date_with_data'
 match 'own_events', to: 'events#own', via: [:get], as: 'own_events'
 
