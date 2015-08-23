@@ -9,7 +9,7 @@ development:
 test:
   adapter: postgresql
   encoding: utf8
-  database: bibapp_test
-  username: hading
-  password: my_db_password
+  database: RailsEventRegister
+  username: walter
+  password: w@lter
   host: localhost

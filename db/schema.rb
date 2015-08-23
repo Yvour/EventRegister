@@ -35,12 +35,13 @@ ActiveRecord::Schema.define(version: 20150822090921) do
   create_table "events", force: :cascade do |t|
     t.string   "name"
     t.date     "initial_date"
-    t.text     "comment"
+    t.integer  "event_date_day", default: 0
+    t.text     "comment",        default: ""
     t.date     "last_date"
     t.integer  "user_id"
     t.integer  "event_type_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "events", ["event_type_id"], name: "index_events_on_event_type_id", using: :btree

@@ -35,6 +35,7 @@ class EventDatesController < ApplicationController
   # POST /event_dates.json
   def create
     @event_date = EventDate.new(event_date_params)
+    
 
     respond_to do |format|
       if @event_date.save

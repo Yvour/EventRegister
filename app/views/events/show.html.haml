@@ -19,6 +19,9 @@
   %b Event type:
   = @event.event_type.name
 
+
+= link_to 'Generate Dates', events_generate_dates_path({:id => @event.id, :data=>{}.to_json})
+\|
 = link_to 'Dates', events_dates_path({:id => @event.id, :data=>{}.to_json})
 \|
 
